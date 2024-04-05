@@ -1,34 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import Header from "./components/Header";
+import TypingPrompt from "./components/TypingPrompt";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const phrase = "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex suscipit illum molestias dolorem, architecto fugiat, et commodi nulla adipisci nobis neque facilis voluptatem explicabo animi. Ut aliquam possimus et itaque."
+  const [highlightIndex, setHighlightIndex] = useState(0);
+  const [currentCorrect, setCurrentCorrect] = useState(0);
+  const [currentAverage, setCurrentAverage] = useState(0);
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="bg-gray-200 min-h-screen min-w-screen">
+      <Header></Header>
+      <main className="flex justify-center">
+        <div className="flex w-2/3">
+          <TypingPrompt
+            phrase={phrase}
+            highlightIndex={highlightIndex}
+            setHighlightIndex={setHighlightIndex}
+            currentCorrect={currentCorrect}
+            setCurrentCorrect={setCurrentCorrect}
+            currentAverage={currentAverage}
+            setCurrentAverage={setCurrentAverage}
+          />
+        </div>
+      </main>
+    </div>
   )
 }
 
