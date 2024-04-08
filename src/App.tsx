@@ -11,8 +11,18 @@ function App() {
   const [currentAverage, setCurrentAverage] = useState(0);
   const [promptStarted, setPromptStarted] = useState(false);
 
+  function setPhrasePrompt(prompt: (string | null)) {
+    if (prompt === null) {
+      setPhrase(textPromptFetcher.getPrompt());
+    } else {
+      setPhrase(prompt);
+    }
+
+    changePromptStartState();
+    return;
+  }
+
   function changePromptStartState() {
-    setPhrase(textPromptFetcher.getPrompt());
     setPromptStarted(!promptStarted);
   }
 
@@ -31,7 +41,7 @@ function App() {
               currentAverage={currentAverage}
               setCurrentAverage={setCurrentAverage}
             /> :
-            <Button onPressFunction={changePromptStartState} prompt={"Start Typing Test!"} />
+            <Button onPressFunction={setPhrasePrompt} prompt={"Start Typing Test!"} />
           }
         </div>
       </main>
