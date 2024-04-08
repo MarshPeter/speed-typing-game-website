@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import PromptStatsCalculator from "../services/PromptStatsCalculator";
 
 interface Props {
   phrase: string,
@@ -55,15 +56,7 @@ export default function TypingPrompt({
       setCurrentAverage((correct / (highlightIndex + 1)) * 100);
       setHighlightIndex(highlightIndex + 1);
       setCorrectCharacterArray(newCorrectArray);
-      calculateWordsPerMinute();
-    }
-
-    function calculateWordsPerMinute() {
-      const currentTime = performance.now();
-      const timeDifference = currentTime - startTime;
-      const timeDifferenceInMinutes = timeDifference / (1000 * 60);
-      const currentWordsPerMinute = (wordsComplete / timeDifferenceInMinutes);
-      setWordsPerMinute(currentWordsPerMinute);
+      setWordsPerMinute(PromptStatsCalculator.calculateWordsPerMinute(startTime, wordsComplete));
     }
 
     useEffect(() => {
