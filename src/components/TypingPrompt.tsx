@@ -9,6 +9,7 @@ interface Props {
   setCurrentCorrect: React.Dispatch<number>,
   currentAverage: number,
   setCurrentAverage: React.Dispatch<number>,
+  setShowPrompt: React.Dispatch<boolean>,
 }
 
 export default function TypingPrompt({
@@ -18,7 +19,9 @@ export default function TypingPrompt({
   currentAverage, 
   setCurrentAverage, 
   currentCorrect, 
-  setCurrentCorrect} : Props) {
+  setCurrentCorrect,
+  setShowPrompt
+  } : Props) {
 
     const phraseLength = phrase.length;
 
@@ -68,6 +71,10 @@ export default function TypingPrompt({
       };
 
     }, [highlightIndex, currentCorrect, correctChracterArray, wordsPerMinute, wordsComplete]);
+
+    if (highlightIndex > phraseLength) {
+      setShowPrompt(false);
+    }
 
     return (
       <div className="flex flex-col gap-4 p-5 rounded border-8 border-indigo-400">

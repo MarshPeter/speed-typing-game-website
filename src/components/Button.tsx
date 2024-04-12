@@ -1,4 +1,3 @@
-import { SetStateAction, Dispatch } from "react";
 
 interface Props {
   onPressFunction: (arg: any) => void; 

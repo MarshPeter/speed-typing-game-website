@@ -9,7 +9,7 @@ function App() {
   const [highlightIndex, setHighlightIndex] = useState(0);
   const [currentCorrect, setCurrentCorrect] = useState(0);
   const [currentAverage, setCurrentAverage] = useState(0);
-  const [promptStarted, setPromptStarted] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
 
   function setPhrasePrompt(prompt: (string | null)) {
     if (prompt === null) {
@@ -23,7 +23,7 @@ function App() {
   }
 
   function changePromptStartState() {
-    setPromptStarted(!promptStarted);
+    setShowPrompt(!showPrompt);
   }
 
   return (
@@ -31,7 +31,7 @@ function App() {
       <Header></Header>
       <main className="flex justify-center">
         <div className="flex w-2/3">
-          {promptStarted ?
+          {showPrompt ?
             <TypingPrompt
               phrase={phrase}
               highlightIndex={highlightIndex}
@@ -40,6 +40,7 @@ function App() {
               setCurrentCorrect={setCurrentCorrect}
               currentAverage={currentAverage}
               setCurrentAverage={setCurrentAverage}
+              setShowPrompt={setShowPrompt}
             /> :
             <Button onPressFunction={setPhrasePrompt} prompt={"Start Typing Test!"} />
           }
