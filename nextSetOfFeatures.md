@@ -1,7 +1,8 @@
 # Features to be built
 
-## NEXT TASK
+## NEXT TASK(s)
 
+Fix prompt page layout
 
 ## Typing prompt
 

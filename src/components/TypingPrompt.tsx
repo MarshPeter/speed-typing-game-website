@@ -23,16 +23,16 @@ export default function TypingPrompt({
   setShowPrompt
   } : Props) {
 
-    const phraseLength = phrase.length;
 
-    const [correctChracterArray, setCorrectCharacterArray] = useState((new Array(phraseLength)).fill(0));
+    const [correctCharacterArray, setCorrectCharacterArray] = useState((new Array<number>()));
     const [wordsPerMinute, setWordsPerMinute] = useState(0);
     const [wordsComplete, setWordsComplete] = useState(0);
     const [startTime, setStartTime] = useState(performance.now());
     // const startTime = performance.now();
 
     function handleKeyDown(e: any) {
-      if (highlightIndex > phrase.length) return;
+      console.log(phrase.length, correctCharacterArray.length);
+      if (highlightIndex >= phrase.length) return;
       const key = e.key;
       console.log(key);
       if (key.toLowerCase() === "shift" || key.toLowerCase() === "capslock") return;
@@ -42,7 +42,7 @@ export default function TypingPrompt({
         correct++;
       }
 
-      const newCorrectArray = correctChracterArray.map((val: number, index: number) => {
+      const newCorrectArray = correctCharacterArray.map((val: number, index: number) => {
         if (index !== highlightIndex) return val;
 
         if (phrase[highlightIndex] === key) {
@@ -64,43 +64,50 @@ export default function TypingPrompt({
 
     useEffect(() => {
 
+      if (correctCharacterArray.length === 0) {
+        setCorrectCharacterArray((new Array(phrase.length)).fill(0));
+      }
+
       document.addEventListener('keydown', handleKeyDown);
 
       return () => {
         document.removeEventListener('keydown', handleKeyDown);
       };
 
-    }, [highlightIndex, currentCorrect, correctChracterArray, wordsPerMinute, wordsComplete]);
+    }, [highlightIndex, currentCorrect, correctCharacterArray, wordsPerMinute, wordsComplete]);
 
-    if (highlightIndex > phraseLength) {
+
+    if (highlightIndex > correctCharacterArray.length) {
       setShowPrompt(false);
     }
 
     return (
-      <div className="flex flex-col gap-4 p-5 rounded border-8 border-indigo-400">
-        <p className="text-3xl">
-          {phrase.split('').map((char, index) => {
-            if (index > highlightIndex) return char;
+      <div className="flex flex-col align-center gap-4 p-5 rounded border-8 border-indigo-400">
+        <div>
+          <p className="text-3xl">
+            {phrase.split('').map((char, index) => {
+              if (index > highlightIndex) return char;
 
-            if (highlightIndex === index) {
-              return <span key={index} className="bg-red-400 bg-opacity-40">{char}</span>
-            }
+              if (highlightIndex === index) {
+                return <span key={index} className="bg-red-400 bg-opacity-40">{char}</span>
+              }
 
-            if (correctChracterArray[index] === 1) {
-              return <span key={index} className="text-green-600">{char}</span>
-            }
+              if (correctCharacterArray[index] === 1) {
+                return <span key={index} className="text-green-600">{char}</span>
+              }
 
-            if (correctChracterArray[index] === -1) {
-              return <span key={index} className="text-red-600">{char}</span>
-            }
+              if (correctCharacterArray[index] === -1) {
+                return <span key={index} className="text-red-600">{char}</span>
+              }
 
-            return char;
-          })}
-        </p>
-        <div className="flex justify-between text-lg">
-          <p>Correct: {currentCorrect} / {phraseLength}</p>
-          <p>WPM: {wordsPerMinute.toFixed(2)}</p>
-          <p>Average: {currentAverage.toFixed(0)}%</p>
+              return char;
+            })}
+          </p>
+          <div className="flex justify-between text-lg">
+            <p>Correct: {currentCorrect} / {correctCharacterArray.length}</p>
+            <p>WPM: {wordsPerMinute.toFixed(2)}</p>
+            <p>Average: {currentAverage.toFixed(0)}%</p>
+          </div>
         </div>
       </div>
     )

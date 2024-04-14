@@ -15,19 +15,23 @@ function Prompter() {
   }, [phrase])
 
   return (
-    <main>
+    <>
       <Header />
-      <TypingPrompt
-        phrase={phrase}
-        highlightIndex={highlightIndex}
-        setHighlightIndex={setHighlightIndex}
-        currentCorrect={currentCorrect}
-        setCurrentCorrect={setCurrentCorrect}
-        currentAverage={currentAverage}
-        setCurrentAverage={setCurrentAverage}
-        setShowPrompt={setShowPrompt}
-      />
-    </main>
+      <main className="w-full flex justify-center">
+        <div className="w-2/3">
+          <TypingPrompt
+            phrase={phrase}
+            highlightIndex={highlightIndex}
+            setHighlightIndex={setHighlightIndex}
+            currentCorrect={currentCorrect}
+            setCurrentCorrect={setCurrentCorrect}
+            currentAverage={currentAverage}
+            setCurrentAverage={setCurrentAverage}
+            setShowPrompt={setShowPrompt}
+          />
+        </div>
+      </main>
+    </>
   )
 }
 
