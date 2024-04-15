@@ -34,7 +34,10 @@ export default function TypingPrompt({
     function handleKeyDown(e: any) {
         console.log(countdownOngoing);
         if (countdownOngoing) return;
-        if (highlightIndex >= phrase.length) return;
+        if (highlightIndex >= phrase.length) {
+            setHighlightIndex(highlightIndex + 1);
+            return;
+        }
         console.log(phrase.length, correctCharacterArray.length);
         const key = e.key;
         console.log(key);
@@ -96,7 +99,7 @@ export default function TypingPrompt({
         countdownOngoing,
     ]);
 
-    if (highlightIndex > correctCharacterArray.length) {
+    if (phrase && highlightIndex >= phrase.length) {
         setShowPrompt(false);
     }
 

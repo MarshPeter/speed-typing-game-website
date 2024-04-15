@@ -2,7 +2,7 @@
 
 ## NEXT TASK(s)
 
-Add count down timer to prompt page, that will prevent typing until AFTER the timer is finished.
+Add prompt results for AFTER the current prompt is finished.
 
 ## Typing prompt
 
