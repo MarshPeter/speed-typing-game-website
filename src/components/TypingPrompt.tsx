@@ -4,48 +4,50 @@ import Countdown from "./Countdown";
 
 interface Props {
     phrase: string;
-    highlightIndex: number;
-    setHighlightIndex: React.Dispatch<number>;
-    currentCorrect: number;
-    setCurrentCorrect: React.Dispatch<number>;
     currentAverage: number;
+    correctCharacterCount: number;
+    wordsPerMinute: number;
+    showPrompt: boolean;
+    setWordsPerMinute: React.Dispatch<number>;
     setCurrentAverage: React.Dispatch<number>;
     setShowPrompt: React.Dispatch<boolean>;
+    setCorrectCharacterCount: React.Dispatch<number>;
 }
 
 export default function TypingPrompt({
     phrase,
-    highlightIndex,
-    setHighlightIndex,
     currentAverage,
-    setCurrentAverage,
-    currentCorrect,
-    setCurrentCorrect,
+    correctCharacterCount,
+    wordsPerMinute,
+    showPrompt,
+    setCorrectCharacterCount,
     setShowPrompt,
+    setCurrentAverage,
+    setWordsPerMinute,
 }: Props) {
     const [correctCharacterArray, setCorrectCharacterArray] = useState(
         new Array<number>()
     );
-    const [wordsPerMinute, setWordsPerMinute] = useState(0);
     const [wordsComplete, setWordsComplete] = useState(0);
+    const [highlightIndex, setHighlightIndex] = useState(0);
     const [startTime, setStartTime] = useState(performance.now());
     const [countdownOngoing, setCountdownOngoing] = useState(true);
 
     function handleKeyDown(e: any) {
-        console.log(countdownOngoing);
         if (countdownOngoing) return;
+        // this is very much a hack - won't need this if indexes work properly
         if (highlightIndex >= phrase.length) {
             setHighlightIndex(highlightIndex + 1);
             return;
         }
-        console.log(phrase.length, correctCharacterArray.length);
         const key = e.key;
         console.log(key);
-        if (key.toLowerCase() === "shift" || key.toLowerCase() === "capslock")
+        if (key.toLowerCase() === "shift" || key.toLowerCase() === "capslock") {
             return;
-        let correct = currentCorrect;
+        }
+        let correct = correctCharacterCount;
         if (phrase[highlightIndex] === key) {
-            setCurrentCorrect(currentCorrect + 1);
+            setCorrectCharacterCount(correctCharacterCount + 1);
             correct++;
         }
 
@@ -65,8 +67,8 @@ export default function TypingPrompt({
             setWordsComplete(wordsComplete + 1);
         }
 
-        setCurrentAverage((correct / (highlightIndex + 1)) * 100);
         setHighlightIndex(highlightIndex + 1);
+        setCurrentAverage((correct / (highlightIndex + 1)) * 100);
         setCorrectCharacterArray(newCorrectArray);
         setWordsPerMinute(
             PromptStatsCalculator.calculateWordsPerMinute(
@@ -76,10 +78,6 @@ export default function TypingPrompt({
         );
     }
 
-    function finishCountdown() {
-        setCountdownOngoing(false);
-    }
-
     useEffect(() => {
         if (correctCharacterArray.length === 0) {
             setCorrectCharacterArray(new Array(phrase.length).fill(0));
@@ -87,20 +85,26 @@ export default function TypingPrompt({
 
         document.addEventListener("keydown", handleKeyDown);
 
+        if (phrase && highlightIndex >= phrase.length) {
+            setShowPrompt(false);
+        }
+
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
         };
     }, [
         highlightIndex,
-        currentCorrect,
+        correctCharacterCount,
         correctCharacterArray,
         wordsPerMinute,
         wordsComplete,
         countdownOngoing,
+        currentAverage,
+        showPrompt,
     ]);
 
-    if (phrase && highlightIndex >= phrase.length) {
-        setShowPrompt(false);
+    function finishCountdown() {
+        setCountdownOngoing(false);
     }
 
     return (
@@ -145,7 +149,7 @@ export default function TypingPrompt({
                 </p>
                 <div className="flex justify-between text-lg">
                     <p>
-                        Correct: {currentCorrect} /{" "}
+                        Correct: {correctCharacterCount} /{" "}
                         {correctCharacterArray.length}
                     </p>
                     <p>WPM: {wordsPerMinute.toFixed(2)}</p>

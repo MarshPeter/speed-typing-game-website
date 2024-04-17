@@ -6,14 +6,20 @@ import PromptResults from "../components/PromptResults";
 
 function Prompter() {
     const [phrase, setPhrase] = useState("");
-    const [highlightIndex, setHighlightIndex] = useState(0);
-    const [currentCorrect, setCurrentCorrect] = useState(0);
+    const [wordsPerMinute, setWordsPerMinute] = useState(0);
     const [currentAverage, setCurrentAverage] = useState(0);
-    const [showPrompt, setShowPrompt] = useState(true);
+    const [correctCharacterCount, setCorrectCharacterCount] = useState(0);
+    const [showPrompt, setShowPrompt] = useState(false);
 
     useEffect(() => {
-        setPhrase(TextPromptFetcher.getPrompt());
+        const newPhrase = TextPromptFetcher.getPrompt();
+        setPhrase(newPhrase);
+        setShowPrompt(true);
     }, [phrase]);
+
+    if (phrase === "") {
+        return <div>Loading Prompt</div>;
+    }
 
     return (
         <>
@@ -23,16 +29,21 @@ function Prompter() {
                     {showPrompt ? (
                         <TypingPrompt
                             phrase={phrase}
-                            highlightIndex={highlightIndex}
-                            setHighlightIndex={setHighlightIndex}
-                            currentCorrect={currentCorrect}
-                            setCurrentCorrect={setCurrentCorrect}
+                            correctCharacterCount={correctCharacterCount}
                             currentAverage={currentAverage}
+                            wordsPerMinute={wordsPerMinute}
+                            showPrompt={showPrompt}
+                            setCorrectCharacterCount={setCorrectCharacterCount}
                             setCurrentAverage={setCurrentAverage}
                             setShowPrompt={setShowPrompt}
+                            setWordsPerMinute={setWordsPerMinute}
                         />
                     ) : (
-                        <PromptResults />
+                        <PromptResults
+                            correctCharacterCount={correctCharacterCount}
+                            wordsPerMinute={wordsPerMinute}
+                            phrase={phrase}
+                        />
                     )}
                 </div>
             </main>
