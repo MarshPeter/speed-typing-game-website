@@ -13,7 +13,7 @@ class PromptStatsCalculator {
         correctCount: number,
         totalCount: number
     ): number {
-        const percentage = (correctCount / totalCount) * 100;
+        const percentage = correctCount / totalCount;
 
         return startingNumber * percentage;
     }

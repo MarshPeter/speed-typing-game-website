@@ -2,7 +2,7 @@
 
 ## NEXT TASK(s)
 
-Add prompt results for AFTER the current prompt is finished.
+Clean up Promp Results
 
 ## Typing prompt
 
