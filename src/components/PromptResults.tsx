@@ -1,6 +1,5 @@
 import PromptStatsCalculator from "../services/PromptStatsCalculator";
 import Button from "./Button";
-import InPageLink from "./InPageLink";
 
 interface Props {
     correctCharacterCount: number;
