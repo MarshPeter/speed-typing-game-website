@@ -26,15 +26,19 @@ export default function TypingPrompt({
     setWordsPerMinute,
 }: Props) {
     const [correctCharacterArray, setCorrectCharacterArray] = useState(
-        new Array<number>()
+        new Array<number>(phrase.length).fill(0)
     );
     const [wordsComplete, setWordsComplete] = useState(0);
     const [highlightIndex, setHighlightIndex] = useState(0);
-    const [startTime, setStartTime] = useState(performance.now());
+    const [startTime, setStartTime] = useState(0);
     const [countdownOngoing, setCountdownOngoing] = useState(true);
 
     function handleKeyDown(e: any) {
         if (countdownOngoing) return;
+        if (startTime === 0) {
+            setStartTime(performance.now());
+        }
+        console.log(phrase.length, correctCharacterArray.length);
         // this is very much a hack - won't need this if indexes work properly
         if (highlightIndex >= phrase.length) {
             setHighlightIndex(highlightIndex + 1);
@@ -79,10 +83,6 @@ export default function TypingPrompt({
     }
 
     useEffect(() => {
-        if (correctCharacterArray.length === 0) {
-            setCorrectCharacterArray(new Array(phrase.length).fill(0));
-        }
-
         document.addEventListener("keydown", handleKeyDown);
 
         if (phrase && highlightIndex >= phrase.length) {

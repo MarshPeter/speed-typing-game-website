@@ -15,7 +15,7 @@ function Prompter() {
         const newPhrase = TextPromptFetcher.getPrompt();
         setPhrase(newPhrase);
         setShowPrompt(true);
-    }, [phrase]);
+    }, []);
 
     if (phrase === "") {
         return <div>Loading Prompt</div>;
