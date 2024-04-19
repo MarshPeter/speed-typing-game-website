@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import Home from "./routes/Home.tsx";
 import Prompter from "./routes/Prompter.tsx";
 import Login from "./routes/Login.tsx";
+import Logout from "./routes/Logout.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login></Login>,
+    },
+    {
+        path: "/logout",
+        element: <Logout></Logout>,
     },
 ]);
 
