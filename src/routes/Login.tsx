@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
 import Button from "../components/Button";
 
@@ -6,11 +6,12 @@ export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    function setAccount() {
-        const username = localStorage.getItem("username");
+    function setAccount(e: any) {
+        e.preventDefault();
+        const usernameValue = localStorage.getItem("username");
 
-        if (username !== null) {
-            localStorage.setItem("username", username);
+        if (usernameValue === null) {
+            localStorage.setItem("username", JSON.stringify(username));
         }
     }
 
@@ -19,7 +20,10 @@ export default function Login() {
             <Header></Header>
             <main className="w-full flex justify-center">
                 <div className="w-5/12">
-                    <form className="flex flex-wrap gap-8 justify-center bg-indigo-400 rounded-2xl border-8 border-black p-8 text-2xl">
+                    <form
+                        onSubmit={setAccount}
+                        className="flex flex-wrap gap-8 justify-center bg-indigo-400 rounded-2xl border-8 border-black p-8 text-2xl"
+                    >
                         <h2 className="md:text-3xl lg:text-5xl font-bold">
                             SpeedTypers
                         </h2>
@@ -58,11 +62,7 @@ export default function Login() {
                                 />
                             </div>
                         </div>
-                        <Button
-                            prompt={"Login"}
-                            type="submit"
-                            onPressFunction={setAccount}
-                        ></Button>
+                        <Button prompt={"Login"} type="submit"></Button>
                     </form>
                 </div>
             </main>
