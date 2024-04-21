@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 import Button from "../components/Button";
 import { Navigate } from "react-router-dom";
