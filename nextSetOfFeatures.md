@@ -2,13 +2,10 @@
 
 ## NEXT TASK(s)
 
-[x] ENSURE THAT LOGIN WORKS LOCALLY
-[x] ENSURE THAT USERS CAN LOGOUT
-[X] ENSURE THAT HEADER CHANGES BASED ON IF USER IS LOGGED IN OR NOT
-[x] LET USERS SEE THEIR PROFILE IF THEY ARE LOGGED IN
-[x] MAKE SOME DUMMY DATA I SUPPOSE
-[x] CREATE STATISTICS DISPLAY IN PROFILE (USE Rechart)
-[ ] MAKE PROFILE LOOK _bareable_ (for my standards)
+[x] Get Vercel Functions Working Locally
+[ ] Get Vercel Functions Working Deployed
+[ ] Setup Database (use something - maybe postgres through vercel?)
+[ ] Have the functions work with the database
 
 ## Typing prompt
 
