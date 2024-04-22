@@ -1,11 +1,15 @@
-import { VercelResponse } from "@vercel/node";
+import { VercelRequest, VercelResponse } from "@vercel/node";
 import { sql } from "@vercel/postgres";
 
-export default async function handler(response: VercelResponse) {
+export default async function handler(
+    request: VercelRequest,
+    response: VercelResponse
+) {
     try {
+        await sql`DROP TABLE Pets;`;
         const result =
             await sql`CREATE TABLE Pets ( Name varchar(255), Owner varchar(255) );`;
-        return response.json({ result });
+        return response.status(200).json({ result });
     } catch (error) {
         return response.status(500).json({ error });
     }

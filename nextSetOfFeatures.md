@@ -4,7 +4,7 @@
 
 [x] Get Vercel Functions Working Locally
 [x] Get Vercel Functions Working Deployed
-[ ] Setup Database (use something - maybe postgres through vercel?)
+[x] Setup Database (use something - maybe postgres through vercel?)
 [ ] Have the functions work with the database
 
 ## Typing prompt
