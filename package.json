@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vercel/node": "^3.0.27",
+    "@vercel/postgres": "^0.8.0",
+    "drizzle-orm": "^0.30.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",

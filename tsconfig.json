@@ -20,6 +20,13 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true
     },
-    "include": ["src", "api"],
+    "include": [
+        "src",
+        "api",
+        "next-env.d.ts",
+        "*/.ts",
+        "*/.tsx",
+        ".next/types/*/.ts"
+    ],
     "references": [{ "path": "./tsconfig.node.json" }]
 }
